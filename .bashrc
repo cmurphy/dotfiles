@@ -40,7 +40,7 @@ function sshwin() { ssh -i ~/.ssh/id_rsa-acceptance Administrator@$1 ; }
 function gpmod() { git clone git@github.com:puppetlabs/puppetlabs-${1}.git $1 ; }
 
 # Cloning stackforge modules
-function gpmod() { git clone git@github.com:stackforge/puppet-${1}.git $1 ; }
+function gsmod() { git clone git@github.com:stackforge/puppet-${1}.git $1 ; }
 
 # Checking out pull requests
 function pr() {
