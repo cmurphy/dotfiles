@@ -30,11 +30,21 @@ source ~/git-completion.bash
 
 # VCloud (from Hunner https://github.com/hunner/hunners-homedir-configs/blob/master/.zshenv)
 function listvm() { curl -s --url http://vcloud.delivery.puppetlabs.net/vm/ ; }
-function getvm() { curl -d --url http://vcloud.delivery.puppetlabs.net/vm/$1 ; }
+function getvm() { curl -s -d --url http://vcloud.delivery.puppetlabs.net/vm/$1 ; }
 function sshvm() { ssh -i ~/.ssh/id_rsa-acceptance root@$1 ; }
 function rmvm() { curl -X DELETE --url http://vcloud.delivery.puppetlabs.net/vm/$1 ; }
 function sshwin() { ssh -i ~/.ssh/id_rsa-acceptance Administrator@$1 ; }
 
+function vm() {
+  search=$1
+  vmtype=$(listvm | grep $search | tail -1 | cut -d ',' -f 1 | tr -d '"') # Get newest version if not specified
+  echo "Getting ${vmtype}..."
+  host=`getvm $vmtype | grep 'hostname' | awk -F ' ' '{print $2}' | tr -d '"'`
+  echo "SSHing to ${host}..."
+  (sshvm $host)   # Subshell so that the function will continue executing after SSH exits
+  echo "Deleting ${host}..."
+  rmvm $host
+}
 
 # Cloning puppetlabs modules
 function gpmod() { git clone git@github.com:puppetlabs/puppetlabs-${1}.git $1 ; }
