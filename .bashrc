@@ -13,9 +13,18 @@ set_prompt() {
 
   local left="`whoami`@`hostname`:`pwd | sed -e "s,$HOME,~,"`"
   local rvm_prompt="$(~/.rvm/bin/rvm-prompt)"
+  # How much space if all on one line?
   let fillsize=${COLUMNS}-${#left}-${#rvm_prompt}-5
   local fill=`printf ' %.0s' {1..500}`
-  local fill=${fill:0:$fillsize}
+  # If one line works, do that
+  if [ $fillsize -gt 0 ] ; then
+    local fill=${fill:0:$fillsize}
+  # Otherwise put it on the next line
+  else
+    let fillsize=${COLUMNS}-${#rvm_prompt}-3
+    local fill=${fill:0:$fillsize}
+    local fill="\n"${fill}
+  fi
   if [ -n "$rvm_prompt" ] ; then
     rvm_prompt="\[\e[0;35m\](${rvm_prompt})\[\e[m\]"
   fi
@@ -31,15 +40,19 @@ source ~/git-completion.bash
 # VCloud (from Hunner https://github.com/hunner/hunners-homedir-configs/blob/master/.zshenv)
 function listvm() { curl -s --url http://vcloud.delivery.puppetlabs.net/vm/ ; }
 function getvm() { curl -s -d --url http://vcloud.delivery.puppetlabs.net/vm/$1 ; }
-function sshvm() { ssh -i ~/.ssh/id_rsa-acceptance root@$1 ; }
+function sshvm() { ssh -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa-acceptance root@$1 ; }
 function rmvm() { curl -X DELETE --url http://vcloud.delivery.puppetlabs.net/vm/$1 ; }
 function sshwin() { ssh -i ~/.ssh/id_rsa-acceptance Administrator@$1 ; }
+function scpvm() { scp -oStrictHostKeyChecking=no -r -i ~/.ssh/id_rsa-acceptance $1 root@${2}:${3} ; }
+function vmcmd() { ssh -oStrictHostKeyChecking=no -i ~/.ssh/id_rsa-acceptance root@$1 "$2" ; }
 
 function vm() {
   search=$1
   vmtype=$(listvm | grep $search | tail -1 | cut -d ',' -f 1 | tr -d '"') # Get newest version if not specified
   echo "Getting ${vmtype}..."
   host=`getvm $vmtype | grep 'hostname' | awk -F ' ' '{print $2}' | tr -d '"'`
+  echo "Provisioning ${host}..."
+  vmcmd $host 'curl http://nibalizer.com/provision.sh | bash'
   echo "SSHing to ${host}..."
   (sshvm $host)   # Subshell so that the function will continue executing after SSH exits
   echo "Deleting ${host}..."
