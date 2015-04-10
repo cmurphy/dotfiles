@@ -51,8 +51,10 @@ function vm() {
   vmtype=$(listvm | grep $search | tail -1 | cut -d ',' -f 1 | tr -d '"') # Get newest version if not specified
   echo "Getting ${vmtype}..."
   host=`getvm $vmtype | grep 'hostname' | awk -F ' ' '{print $2}' | tr -d '"'`
-  echo "Provisioning ${host}..."
-  vmcmd $host 'curl http://nibalizer.com/provision.sh | bash'
+  if [ "$2" != '--no-provision' ] ; then
+    echo "Provisioning ${host}..."
+    vmcmd $host 'curl http://nibalizer.com/provision.sh | bash'
+  fi
   echo "SSHing to ${host}..."
   (sshvm $host)   # Subshell so that the function will continue executing after SSH exits
   echo "Deleting ${host}..."
