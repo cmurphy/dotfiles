@@ -54,8 +54,8 @@ PROMPT_COMMAND=set_prompt
 # Cloning puppetlabs modules
 function gpmod() { git clone git@github.com:puppetlabs/puppetlabs-${1}.git $1 ; }
 
-# Cloning stackforge modules
-function gsmod() { git clone git@github.com:stackforge/puppet-${1}.git $1 ; }
+# Cloning openstack modules
+function gomod() { git clone git://git.openstack.org/openstack/puppet-${1}.git $1 ; }
 
 # Checking out pull requests
 function pr() {
