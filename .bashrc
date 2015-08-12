@@ -1,7 +1,14 @@
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# RBenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
-alias rvmgo='source ~/.rvm/scripts/rvm'
+__rbenv_ps1 ()
+{
+  rbenv_ruby_version=`rbenv version | sed -e 's/ .*//'`
+  printf $rbenv_ruby_version
+}
 
+#PS1
 set_prompt() {
   RET=$?
   if [ $RET -eq 0 ] ; then
@@ -12,25 +19,26 @@ set_prompt() {
   local prompt_symbol="${prompt_color}\n \$\[\e[m\] "
 
   local left="`whoami`@`hostname`:`pwd | sed -e "s,$HOME,~,"`"
-  local rvm_prompt="$(~/.rvm/bin/rvm-prompt)"
-  # How much space if all on one line?
-  let fillsize=${COLUMNS}-${#left}-${#rvm_prompt}-5
+  local rbenv_prompt="\$(__rbenv_ps1)"
+#  local rvm_prompt="$(~/.rvm/bin/rvm-prompt)"
+#  # How much space if all on one line?
+  let fillsize=${COLUMNS}-${#left}-${#rbenv_prompt}-2
   local fill=`printf ' %.0s' {1..500}`
   # If one line works, do that
   if [ $fillsize -gt 0 ] ; then
     local fill=${fill:0:$fillsize}
   # Otherwise put it on the next line
   else
-    let fillsize=${COLUMNS}-${#rvm_prompt}-3
+    let fillsize=${COLUMNS}-${#rvm_prompt}-1
     local fill=${fill:0:$fillsize}
     local fill="\n"${fill}
   fi
-  if [ -n "$rvm_prompt" ] ; then
-    rvm_prompt="\[\e[0;35m\](${rvm_prompt})\[\e[m\]"
+  if [ -n "$rbenv_prompt" ] ; then
+    rbenv_prompt="\[\e[0;35m\](${rbenv_prompt})\[\e[m\]"
   fi
 
   PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;36m\]\h:\w \[\e[m\]'
-  PS1="$PS1 ${fill} ${rvm_prompt}${prompt_symbol}"
+  PS1="$PS1 ${fill} ${rbenv_prompt}${prompt_symbol}"
 }
 
 PROMPT_COMMAND=set_prompt
