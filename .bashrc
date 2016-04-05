@@ -23,17 +23,17 @@ set_prompt() {
 
   local left="`whoami`@`hostname`:`pwd | sed -e "s,$HOME,~,"`"
   local rbenv_prompt="\$(__rbenv_ps1)"
-  local git_prompt="\$(__git_ps1)"
+  local git_prompt="$(__git_ps1)"
 #  local rvm_prompt="$(~/.rvm/bin/rvm-prompt)"
 #  # How much space if all on one line?
-  let fillsize=${COLUMNS}-${#left}-${#git_prompt}-${#rbenv_prompt}
+  let fillsize=${COLUMNS}-${#left}-${#git_prompt}-${#rbenv_prompt}-3
   local fill=`printf ' %.0s' {1..500}`
   # If one line works, do that
   if [ $fillsize -gt 0 ] ; then
     local fill=${fill:0:$fillsize}
   # Otherwise put it on the next line
   else
-    let fillsize=${COLUMNS}-${#git_prompt}-${#rvm_prompt}
+    let fillsize=${COLUMNS}-${#git_prompt}-${#rbenv_prompt}-1
     local fill=${fill:0:$fillsize}
     local fill="\n"${fill}
   fi
@@ -62,4 +62,9 @@ function pr() {
   id=$1
   git fetch origin pull/${id}/head:pr_${id}
   git checkout pr_${id}
+}
+
+banishvm() {
+  vm=$1
+  virsh destroy $vm && virsh undefine $vm
 }
