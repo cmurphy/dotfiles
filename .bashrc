@@ -1,6 +1,3 @@
-# Git
-source ~/git-completion.bash
-
 #PS1
 set_prompt() {
   RET=$?
