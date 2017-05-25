@@ -1,6 +1,9 @@
 export PATH=$PATH:~/bin
 export LIBVIRT_DEFAULT_URI=qemu:///system
 
+alias pg='ping google.com'
+alias fixsound='/usr/sbin/alsactl restore 0'
+
 #PS1
 set_prompt() {
   RET=$?
@@ -60,4 +63,3 @@ tunnelchrome() {
   google-chrome --proxy-server=socks://localhost:8080 --user-data-dir=~/.google-chrome-usa
   kill $pid
 }
-
