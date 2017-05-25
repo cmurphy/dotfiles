@@ -49,3 +49,12 @@ banishvm() {
   vm=$1
   virsh destroy $vm && virsh undefine $vm
 }
+
+# Start a chrome instance in a separate process, tunneled through the US
+tunnelchrome() {
+  ssh -D 8080 -f -N zim
+  pid=$(netstat -ltpn 2>/dev/null | grep -m 1 8080 | awk '{print $7}' | cut -d '/' -f 1)
+  google-chrome --proxy-server=socks://localhost:8080 --user-data-dir=~/.google-chrome-usa
+  kill $pid
+}
+
