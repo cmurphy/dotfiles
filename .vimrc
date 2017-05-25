@@ -1,6 +1,6 @@
 " Prettify
 set number
-"color evening
+color evening
 "color elflord
 
 " Tabbing
@@ -18,3 +18,9 @@ set list listchars=tab:>·,trail:·
 " Keyboard remapping
 map <F1> <Esc>
 imap <F1> <Esc>
+
+" Preserve terminal background
+hi Normal ctermbg=none
+
+" Set line length for commit messages
+au FileType gitcommit set tw=72
