@@ -51,11 +51,6 @@ function pr() {
   git checkout pr_${id}
 }
 
-banishvm() {
-  vm=$1
-  virsh destroy $vm && virsh undefine $vm
-}
-
 # Start a chrome instance in a separate process, tunneled through the US
 tunnelchrome() {
   ssh -D 8080 -f -N zim
