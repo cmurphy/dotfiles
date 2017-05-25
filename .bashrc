@@ -58,3 +58,25 @@ tunnelchrome() {
   google-chrome --proxy-server=socks://localhost:8080 --user-data-dir=~/.google-chrome-usa
   kill $pid
 }
+
+# What time is it in the places I care about?
+# Usage:
+# $ what time is it
+# $ what time is it in pdx
+function what() {
+  if [ "$1 $2 $3" == "time is it" ] ; then
+    if [ "$4 $5" == "in pdx" ] ; then
+      export TZ='America/Los_Angeles'
+    elif [ "$4 $5" == "in nyc" ] ; then
+      export TZ='America/New_York'
+    elif [ "$4 $5" == "in syd" ] ; then
+      export TZ='Australia/Sydney'
+    else
+      # Don't set TZ
+      :
+    fi
+    date
+  else
+    "what $@"
+  fi
+}
