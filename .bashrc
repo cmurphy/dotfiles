@@ -1,3 +1,6 @@
+export PATH=$PATH:~/bin
+export LIBVIRT_DEFAULT_URI=qemu:///system
+
 #PS1
 set_prompt() {
   RET=$?
