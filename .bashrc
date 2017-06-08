@@ -76,6 +76,7 @@ function what() {
       :
     fi
     date
+    unset TZ
   else
     "what $@"
   fi
