@@ -1,0 +1,7 @@
+[user]
+	name = Colleen Murphy
+	email = colleen.murphy@suse.com
+[gitreview]
+	username = krinkle
+[core]
+	pager = less -F -X
