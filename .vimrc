@@ -24,3 +24,7 @@ hi Normal ctermbg=none
 
 " Set line length for commit messages
 au FileType gitcommit set tw=72
+
+" Set line length for markdown/RST
+au BufRead,BufNewFile *.md setlocal textwidth=80
+au BufRead,BufNewFile *.rst setlocal textwidth=80
