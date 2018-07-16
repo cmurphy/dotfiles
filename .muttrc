@@ -26,4 +26,6 @@ set sort_aux = last-date-received
 unset collapse_unread
 bind index - collapse-thread
 
+set signature = ~/.mutt/signature.txt
+
 source ~/.mutt/dracula.muttrc
