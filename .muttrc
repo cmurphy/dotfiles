@@ -1,0 +1,29 @@
+set imap_user=comurphy
+set folder=imaps://imap.suse.de:993
+set spoolfile=+INBOX
+mailboxes =INBOX
+set imap_check_subscribed
+set sidebar_visible = yes
+
+set header_cache = ~/.cache/mutt
+set message_cachedir = ~/.cache/mutt
+unset imap_passive
+set imap_keepalive = 300
+set mail_check = 120
+set timeout = 20
+
+set realname = 'Colleen Murphy'
+set from = colleen.murphy@suse.de
+set use_from = yes
+set smtp_url = smtp://comurphy@imap.suse.de:587
+set postponed = +INBOX/Drafts
+set ssl_starttls = yes
+set record = +INBOX/Sent
+
+set sort = threads
+set sort_browser = reverse-date
+set sort_aux = last-date-received
+unset collapse_unread
+bind index - collapse-thread
+
+source ~/.mutt/dracula.muttrc
