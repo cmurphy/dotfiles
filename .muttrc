@@ -28,4 +28,6 @@ bind index - collapse-thread
 
 set signature = ~/.mutt/signature.txt
 
+macro attach s <save-entry><bol>~/Downloads/
+
 source ~/.mutt/dracula.muttrc
