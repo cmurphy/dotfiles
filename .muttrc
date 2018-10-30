@@ -19,6 +19,7 @@ set smtp_url = smtp://comurphy@imap.suse.de:587
 set postponed = +INBOX/Drafts
 set ssl_starttls = yes
 set record = +INBOX/Sent
+set forward_format = 'Fwd: %s'
 
 set sort = threads
 set sort_browser = reverse-date
