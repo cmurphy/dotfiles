@@ -1,6 +1,8 @@
 export PATH=$PATH:~/bin
 export LIBVIRT_DEFAULT_URI=qemu:///system
 
+export GOPATH=~/dev/go
+
 alias pg='ping google.com'
 alias fixsound='/usr/sbin/alsactl restore 0'
 
