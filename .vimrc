@@ -32,4 +32,4 @@ au BufRead,BufNewFile *.rst setlocal textwidth=80
 " Use tabs for go
 au BufRead,BufNewFile *.go set noexpandtab
 " Needed for vim-go
-filetype plugin indent on
+filetype plugin on
