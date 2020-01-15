@@ -33,3 +33,7 @@ au BufRead,BufNewFile *.rst setlocal textwidth=80
 au BufRead,BufNewFile *.go set noexpandtab
 " Needed for vim-go
 filetype plugin on
+
+" Set E501 marker for python
+au BufRead,BufNewFile *.py setlocal colorcolumn=80
+hi ColorColumn ctermbg=LightGray
