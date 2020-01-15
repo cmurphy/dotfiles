@@ -37,3 +37,6 @@ filetype plugin on
 " Set E501 marker for python
 au BufRead,BufNewFile *.py setlocal colorcolumn=80
 hi ColorColumn ctermbg=LightGray
+
+" Normal copy paste behavior
+set mouse=r
