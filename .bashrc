@@ -1,7 +1,7 @@
-export PATH=$PATH:~/bin
+export GOPATH=~/dev/go
+export PATH=$PATH:~/bin:/usr/lib/postgresql96/bin:$GOPATH/bin
 export LIBVIRT_DEFAULT_URI=qemu:///system
 
-export GOPATH=~/dev/go
 
 alias pg='ping google.com'
 alias fixsound='/usr/sbin/alsactl restore 0'
