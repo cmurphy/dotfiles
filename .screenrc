@@ -17,3 +17,5 @@ startup_message off
 #bindkey "^[[1;5B" focus down
 
 defutf8 on
+
+term screen-256color
