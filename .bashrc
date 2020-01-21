@@ -48,9 +48,18 @@ function osico() { git clone git://git.openstack.org/openstack-infra/${1}.git $1
 
 # Checking out pull requests
 function pr() {
-  id=$1
-  git fetch origin pull/${id}/head:pr_${id}
-  git checkout pr_${id}
+  local id=$1
+  local remote=$2
+  if [ -z "$remote" ] ; then
+      remote=origin
+  fi
+  git fetch $remote pull/${id}/head
+  local branch=pr_${id}
+  if git branch | grep $branch ; then
+    git checkout $branch && git reset --hard FETCH_HEAD
+  else
+    git checkout -b pr_${id} FETCH_HEAD
+  fi
 }
 
 # Start a chrome instance in a separate process, tunneled through the US
