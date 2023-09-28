@@ -99,3 +99,19 @@ function what() {
     "what $@"
   fi
 }
+
+### PDFs
+
+function shrinkpdf() {
+    local input=$1
+    local output=$(mktemp).pdf
+    gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/default -dNOPAUSE -dQUIET -dBATCH -sOutputFile=$output $input
+    mv $output $input
+}
+
+function pngtopdf() {
+    local file=$1
+    name=$(basename $file .png)
+    convert $file $name.pdf
+    shrinkpdf $name.pdf
+}
