@@ -30,5 +30,6 @@ bind index - collapse-thread
 set signature = ~/.mutt/signature.txt
 
 macro attach s <save-entry><bol>~/Downloads/
+macro index S <save-message>=INBOX/Spam<enter><enter>
 
 source ~/.mutt/dracula.muttrc
