@@ -1,5 +1,4 @@
-export GOPATH=~/dev/go
-export PATH=$PATH:~/bin:/usr/lib/postgresql96/bin:$GOPATH/bin
+export PATH=$PATH:~/bin:$HOME/go/bin
 export LIBVIRT_DEFAULT_URI=qemu:///system
 
 alias pg='ping google.com'
