@@ -41,6 +41,9 @@ hi ColorColumn ctermbg=LightGray
 " Normal copy paste behavior
 set mouse=r
 
+" syntax highlighting
+syntax on
+
 " Underline function
 function! s:Underline(chars)
   let chars = empty(a:chars) ? '-' : a:chars
@@ -49,3 +52,7 @@ function! s:Underline(chars)
   put =strpart(uline, 0, nr_columns)
 endfunction
 command! -nargs=? Underline call s:Underline(<q-args>)
+
+" go to last position
+au BufReadPost * if &ft != "gitcommit" && line("'\"") > 0 && line("'\"") <= line("$")
+  \| exe "normal! g'\"" | endif
