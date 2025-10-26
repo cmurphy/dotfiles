@@ -71,9 +71,11 @@ function pr() {
 }
 
 # Start a chrome instance in a separate process, tunneled through the US
-tunnelchrome() {
-  ssh -D 8080 -f -N zim
-  pid=$(netstat -ltpn 2>/dev/null | grep -m 1 8080 | awk '{print $7}' | cut -d '/' -f 1)
+tunnel() {
+  tunnelhost=$1
+  ssh -D 8080 -f -N $tunnelhost
+  pid=$(ss -ltpn 2>/dev/null | grep -m 1 8080 | awk '{print $6}' | sed -e 's/.*pid=\([0-9]\+\),.*$/\1/')
+  #google-chrome --proxy-server=socks://localhost:8080 --user-data-dir=~/.google-chrome-usa http://192.168.0.130:8096
   google-chrome --proxy-server=socks://localhost:8080 --user-data-dir=~/.google-chrome-usa
   kill $pid
 }

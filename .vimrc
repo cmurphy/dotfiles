@@ -1,7 +1,7 @@
 " Prettify
 set number
-color evening
-"color elflord
+"color evening
+color elflord
 
 " Tabbing
 "set ts=2
@@ -56,3 +56,7 @@ command! -nargs=? Underline call s:Underline(<q-args>)
 " go to last position
 au BufReadPost * if &ft != "gitcommit" && line("'\"") > 0 && line("'\"") <= line("$")
   \| exe "normal! g'\"" | endif
+
+set backspace=indent,eol,start
+
+syntax on
