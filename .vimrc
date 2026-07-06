@@ -1,7 +1,7 @@
 " Prettify
 set number
-"color evening
-color elflord
+color evening
+"color elflord
 
 " Tabbing
 "set ts=2
