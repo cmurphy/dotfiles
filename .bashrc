@@ -6,7 +6,7 @@ alias fixsound='/usr/sbin/alsactl restore 0'
 
 #PS1
 set_prompt() {
-  source ~/.git-prompt.sh
+  source /etc/bash_completion.d/git-prompt
   RET=$?
   if [ $RET -eq 0 ] ; then
     local prompt_color="\[\e[0;32m"
@@ -38,7 +38,7 @@ set_prompt() {
 }
 
 PROMPT_COMMAND=set_prompt
-source ~/.git-completion.bash
+source /usr/share/bash-completion/completions/git
 
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=100000                   # big big history
